@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Jerk {
+    public static String LAYOUT_DIR = "layouts";
     private String layoutDir;
     private Class<?> controller;
     private Stage stage;
@@ -17,11 +18,11 @@ public class Jerk {
     private boolean isModal = false;
 
     public Jerk(Class<?> controller) {
-        this(controller, "layouts/", new Stage());
+        this(controller, LAYOUT_DIR + "/", new Stage());
     }
 
     public Jerk(Class<?> controller, Stage stage) {
-        this(controller, "layouts/", stage);
+        this(controller, LAYOUT_DIR + "/", stage);
     }
 
     public Jerk(Class<?> controller, String layoutDir, Stage stage) {
