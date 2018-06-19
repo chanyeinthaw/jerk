@@ -73,6 +73,19 @@ public class Jerk {
         return controller;
     }
 
+    public <T> Controller startIn(T parent, StartInHandler<T> handler) throws IOException {
+        FXMLLoader fxmlLoader = _loadFxml();
+        Parent root = fxmlLoader.load();
+        Controller controller = fxmlLoader.getController();
+        controller.isModel = isModal;
+        controller.setStage(stage);
+        controller.onLoaded(root);
+
+        handler.handle(parent, root);
+
+        return controller;
+    }
+
     private FXMLLoader _loadFxml() {
         String fxmlFile = layoutDir + controller.getAnnotation(Layout.class).value() + ".fxml";
         return new FXMLLoader(ResourceLoader.getResource(fxmlFile));
@@ -83,5 +96,9 @@ public class Jerk {
             Platform.exit();
             System.exit(0);
         });
+    }
+
+    public interface StartInHandler<T> {
+        void handle(T parent, Parent root);
     }
 }
